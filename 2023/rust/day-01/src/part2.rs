@@ -7,9 +7,7 @@ pub fn process(input: &str) -> miette::Result<String, AocError> {
 }
 
 fn process_line(line: &str) -> u32 {
-    let mut index = 0;
-
-    let line_iter = std::iter::from_fn(move || {
+    let line_iter = (0..line.len()).filter_map(|index| {
         let reduced_line = &line[index..];
 
         let result = if reduced_line.starts_with("one") {
@@ -35,7 +33,6 @@ fn process_line(line: &str) -> u32 {
             result
         };
 
-        index += 1;
         result
     });
     let mut it = line_iter.filter_map(|character| character.to_digit(10));
